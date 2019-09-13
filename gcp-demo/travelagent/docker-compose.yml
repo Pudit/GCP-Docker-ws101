@@ -1,0 +1,16 @@
+version: '3'
+
+services:
+  travelagent-container:
+    image: travelagent-image:0.0.1
+    container_name: travelagent-container
+    build:
+      context: ./
+      dockerfile: Dockerfile
+    volumes:
+      - .:/inout
+    ports:
+      - "50001:50001"
+    environment: 
+      SPRING_CONFIG_LOCATION: /inout/config/application.properties
+      #SPRING_PROFILES_ACTIVE: docker

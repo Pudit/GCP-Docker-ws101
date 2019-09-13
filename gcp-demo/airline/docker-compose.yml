@@ -1,0 +1,15 @@
+version: '3'
+
+services:
+  airline-container:
+    image: airline-image:0.0.1
+    container_name: airline-container
+    build:
+      context: ./
+      dockerfile: Dockerfile
+    volumes:
+      - ./inout:/inout
+    ports:
+      - "50002:50002"
+    environment: 
+      SPRING_PROFILES_ACTIVE: docker

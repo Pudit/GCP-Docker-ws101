@@ -1,0 +1,38 @@
+version: '3'
+
+services:
+  airline-container:
+    image: airline-image:0.0.1
+    container_name: airline-container
+    build:
+      context: ./airline
+      dockerfile: Dockerfile
+    volumes:
+      - ./airline/inout:/inout
+    ports:
+      - "50002:50002"
+    networks:
+      static-network:
+        ipv4_address: 192.168.0.2
+    environment:
+      SPRING_PROFILES_ACTIVE: docker
+  travelagent-container:
+    image: travelagent-image:0.0.1
+    container_name: travelagent-container
+    build:
+      context: ./travelagent/
+      dockerfile: Dockerfile
+    volumes:
+      - ./travelagent:/inout
+    ports:
+      - "50001:50001"
+    networks:
+      static-network:
+        ipv4_address: 192.168.0.3
+    environment:
+      SPRING_PROFILES_ACTIVE: docker
+networks:
+  static-network:
+    ipam:
+      config:
+        - subnet: 192.168.0.0/16
